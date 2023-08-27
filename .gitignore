@@ -4,6 +4,7 @@
 ### Python ###
 
 game_note.py
+game.doc
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
