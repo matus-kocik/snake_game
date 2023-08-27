@@ -4,10 +4,17 @@ from config import config
 
 def update_position(snake, direction, step):
     if direction == "UP":
-        snake = [snake[0], snake[1] -step]
+        snake = [snake[0], snake[1] - step]
+    if direction == "DOWN":
+        snake = [snake[0], snake[1] + step]
+    if direction == "LEFT":
+        snake = [snake[0] - step, snake[1]]
+    if direction == "RIGHT":
+        snake = [snake[0] + step, snake[1]]
     return snake
 
 if __name__ == "__main__":
+    
     pygame.init()
     clock = pygame.time.Clock()
     window = pygame.display.set_mode(config.GAME_RES)
