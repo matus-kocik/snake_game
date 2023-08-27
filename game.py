@@ -2,9 +2,9 @@ import pygame
 import sys
 from config import config
 
-def update_position(snake, direction):
+def update_position(snake, direction, step):
     if direction == "UP":
-        snake = [snake[0], snake[1] -1]
+        snake = [snake[0], snake[1] -step]
     return snake
 
 if __name__ == "__main__":
@@ -20,7 +20,7 @@ if __name__ == "__main__":
                 pygame.quit()
                 sys,exit()
         
-        snake = update_position(snake, direction)        
+        snake = update_position(snake, direction, config.SNAKE_SIZE)        
         pygame.draw.rect(window, config.BODY_COLOR, pygame.Rect(snake[0], snake[1], config.SNAKE_SIZE, config.SNAKE_SIZE))
         
         pygame.display.update()
