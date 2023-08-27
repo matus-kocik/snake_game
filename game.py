@@ -1,5 +1,8 @@
 import pygame
+import random
 import sys
+
+
 from config import config
 
 def update_position(snake, direction, step):
@@ -35,6 +38,11 @@ def end_game(window):
     pygame.quit()
     sys.exit()
     
+def generate_apple(game_res, snake_size):
+    x = random.choice(range(0, game_res[0] - snake_size + 1, snake_size))
+    y = random.choice(range(0, game_res[1] - snake_size + 1, snake_size))
+    
+    
 if __name__ == "__main__":
     
     pygame.init()
@@ -42,6 +50,7 @@ if __name__ == "__main__":
     window = pygame.display.set_mode(config.GAME_RES)
     snake = [config.GAME_RES[0] // 2, config.GAME_RES[1] // 2]
     direction = "UP"
+    apple = generate_apple(config.GAME_RES, config.SNAKE_SIZE)
 
     while True:
         for event in pygame.event.get():
@@ -58,6 +67,7 @@ if __name__ == "__main__":
             end_game(window)
             
         pygame.draw.rect(window, config.BODY_COLOR, pygame.Rect(snake[0], snake[1], config.SNAKE_SIZE, config.SNAKE_SIZE))
+        pygame.draw.rect(window, config.APPLE_COLOR, pygame.Rect(apple[0], apple[1], config.APPLE_COLOR, config.APPLE_COLOR))
         
         pygame.display.update()
         window.fill(config.BACKGROUND_COLOR)
