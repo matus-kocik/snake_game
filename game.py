@@ -24,6 +24,17 @@ def update_direction(direction, keys):
         return "DOWN" if direction != "UP" else direction
     return direction
 
+def is_out(snake, game_res):
+    if snake[0] < 0 or snake[1] < 0 or snake[0] > game_res[0] or snake[1] > game_res [1]:
+        return True
+    return False
+
+def end_game(window):
+    print("GAME OVER!!!")
+    window.fill(config.BACKGROUND_COLOR)
+    pygame.quit()
+    sys.exit()
+    
 if __name__ == "__main__":
     
     pygame.init()
@@ -40,7 +51,12 @@ if __name__ == "__main__":
         
         keys = pygame.key.get_pressed()
         direction = update_direction(direction, keys)
-        snake = update_position(snake, direction, config.SNAKE_SIZE)        
+        
+        snake = update_position(snake, direction, config.SNAKE_SIZE)   
+         
+        if is_out(snake, config.GAME_RES):
+            end_game(window)
+            
         pygame.draw.rect(window, config.BODY_COLOR, pygame.Rect(snake[0], snake[1], config.SNAKE_SIZE, config.SNAKE_SIZE))
         
         pygame.display.update()
