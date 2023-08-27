@@ -42,6 +42,10 @@ def generate_apple(game_res, snake_size):
     x = random.choice(range(0, game_res[0] - snake_size + 1, snake_size))
     y = random.choice(range(0, game_res[1] - snake_size + 1, snake_size))
     
+def is_collision(snake_head, apple):
+    if snake_head[0] == apple[0] and snake_head[1] == apple [1]:
+        return True
+    return False
     
 if __name__ == "__main__":
     
@@ -62,7 +66,11 @@ if __name__ == "__main__":
         direction = update_direction(direction, keys)
         
         snake = update_position(snake, direction, config.SNAKE_SIZE)   
-         
+        
+        if is_collision(snake, apple):
+            print("Collision") 
+            apple = generate_apple(config.GAME_RES, config.SNAKE_SIZE)
+
         if is_out(snake, config.GAME_RES):
             end_game(window)
             
@@ -70,5 +78,6 @@ if __name__ == "__main__":
         pygame.draw.rect(window, config.APPLE_COLOR, pygame.Rect(apple[0], apple[1], config.APPLE_COLOR, config.APPLE_COLOR))
         
         pygame.display.update()
+        
         window.fill(config.BACKGROUND_COLOR)
         clock.tick(config.GAME_FPS)
