@@ -13,6 +13,17 @@ def update_position(snake, direction, step):
         snake = [snake[0] + step, snake[1]]
     return snake
 
+def update_direction(direction, keys):
+    if keys[pygame.K_LEFT]:
+        return "LEFT" if direction != "RIGHT" else direction
+    if keys[pygame.K_RIGHT]:
+        return "RIGHT" if direction != "LEFT" else direction
+    if keys[pygame.K_UP]:
+        return "UP" if direction != "DOWN" else direction
+    if keys[pygame.K_DOWN]:
+        return "DOWN" if direction != "UP" else direction
+    return direction
+
 if __name__ == "__main__":
     
     pygame.init()
@@ -27,6 +38,8 @@ if __name__ == "__main__":
                 pygame.quit()
                 sys,exit()
         
+        keys = pygame.key.get_pressed()
+        direction = update_direction(direction, keys)
         snake = update_position(snake, direction, config.SNAKE_SIZE)        
         pygame.draw.rect(window, config.BODY_COLOR, pygame.Rect(snake[0], snake[1], config.SNAKE_SIZE, config.SNAKE_SIZE))
         
